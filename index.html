@@ -392,7 +392,9 @@ transform:translateX(0);
   border:1px solid var(--border);
   border-radius:var(--radius);
   padding:26px;
-  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 }
 
 .project-card:hover{
@@ -743,6 +745,11 @@ transform:translateY(0);
     <div class="project-card reveal">
       <span class="num">01</span>
       <h3>Conception d'une Solution d'Aide à la Décision</h3>
+      <p>
+      Analyse d'un besoin métier afin de construire un système d'aide à la décision.
+      Le projet comprenait la modélisation des données, la définition d'indicateurs de performance (KPI)
+      et la réalisation de tableaux de bord interactifs destinés à faciliter le pilotage d'activité.
+      </p>
       <div class="tag-row">
         <span class="tag">Analyse métier</span>
         <span class="tag">KPI</span>
@@ -753,6 +760,11 @@ transform:translateY(0);
     <div class="project-card reveal">
       <span class="num">02</span>
       <h3>Conception d'un Data Warehouse Décisionnel</h3>
+      <p>
+      Développement d'un entrepôt de données sous PostgreSQL permettant de centraliser et
+      historiser les informations nécessaires au reporting. Mise en place de traitements ETL,
+      de procédures PL/pgSQL et de vues analytiques pour l'exploitation des données.
+      </p>
       <div class="tag-row">
         <span class="tag tag-accent">PostgreSQL</span>
         <span class="tag">ETL</span>
@@ -762,7 +774,12 @@ transform:translateY(0);
     </div>
     <div class="project-card reveal">
       <span class="num">03</span>
-      <h3>Analyse Exploratoire et Extraction de Connaissances</h3>
+      <h3>Analyse Exploratoire et Extraction de Connaissances</h3>      
+      <p>
+      Préparation, nettoyage et exploration de jeux de données dans le but d'identifier des tendances,
+      des comportements récurrents et des segments pertinents. L'objectif était de transformer les
+      données brutes en informations exploitables pour la prise de décision.
+      </p>
       <div class="tag-row">
         <span class="tag">Datamining</span>
         <span class="tag">Segmentation</span>
@@ -772,6 +789,11 @@ transform:translateY(0);
     <div class="project-card reveal">
       <span class="num">04</span>
       <h3>Développement de Modèles Prédictifs</h3>
+      <p>
+      Construction et évaluation de modèles de Machine Learning destinés à prédire des comportements
+      ou des résultats futurs à partir de données historiques. Comparaison des performances des modèles
+      et analyse des résultats obtenus.
+      </p>
       <div class="tag-row">
         <span class="tag">Machine Learning</span>
         <span class="tag">Classification supervisée</span>
@@ -781,6 +803,11 @@ transform:translateY(0);
     <div class="project-card reveal">
       <span class="num">05</span>
       <h3>Conception d'Applications Web de Visualisation de Données</h3>
+      <p>
+      Développement d'interfaces web interactives permettant la consultation et la visualisation
+      de données. Utilisation de HTML, CSS, JavaScript, PHP et SQL ainsi que de bibliothèques de
+      visualisation pour présenter les résultats de manière claire et intuitive.
+      </p>
       <div class="tag-row">
         <span class="tag">HTML</span>
         <span class="tag">CSS</span>
