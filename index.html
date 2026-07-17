@@ -120,21 +120,15 @@ nav a:hover{color:var(--accent);background:var(--accent-soft);}
   background-size:26px 26px;
 }
 
-.hero::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    rgba(255,255,255,0.35),
-    rgba(255,255,255,0.55)
-  );
-}
 
 .hero-inner{
-  position:relative;
+animation:heroAppear 1.2s ease;
+position:relative;
+  z-index:10;
   max-width:820px;
   margin:0 auto;
   text-align:center;
+
 }
 
 .hero .eyebrow{justify-content:center;}
@@ -213,6 +207,53 @@ section.tight{padding-top:0;}
 .section-head{max-width:640px;margin-bottom:44px;}
 .section-head h2{font-size:clamp(1.6rem,3vw,2.1rem);font-weight:600;}
 
+.ticker-section{
+padding:30px 0;
+overflow:hidden;
+}
+
+.ticker{
+overflow:hidden;
+white-space:nowrap;
+margin:12px 0;
+}
+
+.ticker-track{
+display:inline-flex;
+gap:20px;
+animation:scrollLeft 25s linear infinite;
+}
+
+.reverse .ticker-track{
+animation:scrollRight 25s linear infinite;
+}
+
+.ticker span{
+padding:12px 20px;
+border-radius:25px;
+background:white;
+border:1px solid var(--border);
+font-family:var(--mono);
+font-size:13px;
+}
+
+@keyframes scrollLeft{
+from{
+transform:translateX(0);
+}
+to{
+transform:translateX(-50%);
+}
+}
+
+@keyframes scrollRight{
+from{
+transform:translateX(-50%);
+}
+to{
+transform:translateX(0);
+}
+}
 /* ABOUT */
 .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;}
 
@@ -437,6 +478,20 @@ footer{
   .hero{padding:150px 18px 80px;}
 }
 
+@keyframes heroAppear{
+
+0%{
+opacity:0;
+transform:translateY(40px);
+}
+
+100%{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
 </style>
 </head>
 <body>
@@ -469,6 +524,52 @@ footer{
   </div>
 </header>
 
+  
+<section class="ticker-section">
+
+<div class="ticker">
+<div class="ticker-track">
+
+<span>Power BI</span>
+<span>SQL</span>
+<span>PostgreSQL</span>
+<span>Python</span>
+<span>Machine Learning</span>
+<span>Data Warehouse</span>
+
+<span>Power BI</span>
+<span>SQL</span>
+<span>PostgreSQL</span>
+<span>Python</span>
+<span>Machine Learning</span>
+<span>Data Warehouse</span>
+
+</div>
+</div>
+
+<div class="ticker reverse">
+<div class="ticker-track">
+
+<span>IA Générative</span>
+<span>Prompt Engineering</span>
+<span>ETL</span>
+<span>MongoDB</span>
+<span>Data Analytics</span>
+<span>Business Intelligence</span>
+
+<span>IA Générative</span>
+<span>Prompt Engineering</span>
+<span>ETL</span>
+<span>MongoDB</span>
+<span>Data Analytics</span>
+<span>Business Intelligence</span>
+
+</div>
+</div>
+
+</section>
+
+  
 <div class="container">
 
 <section id="about">
