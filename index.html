@@ -140,6 +140,8 @@ nav a:hover{color:var(--accent);background:var(--accent-soft);}
   position:relative;
   padding:170px 24px 110px;
   overflow:hidden;
+  top:0;left:0;width:100%;height:100%;
+  z:index:1;
   background-image:radial-gradient(var(--border) 1.4px, transparent 1.4px);
   background-size:26px 26px;
 }
@@ -709,6 +711,12 @@ transform:translateY(0);
 }
 
 }
+  
+#particleCanvas{
+  position:absolute;
+  inset:0;
+  z-index:1;
+}
 
 </style>
 </head>
@@ -732,6 +740,7 @@ transform:translateY(0);
 </nav>
 
 <header class="hero">
+  <canvas id="particleCanvas"></canvas>
   <div class="hero-inner">
     <p class="eyebrow">Portfolio Data & IA</p>
     <h1>Adiaratou Ndiaye</h1>
@@ -811,8 +820,10 @@ transform:translateY(0);
         <span class="tag">BI Developer</span>
         <span class="tag">Data Consultant Junior</span>
         <span class="tag">Data Analytics</span>
+        <span class ="tag tag-accent">Développement BackEnd & FrontEnd </span>
         <span class="tag">Data Visualisation</span>
         <span class="tag">Machine Learning</span>
+        <span class ="tag tag-accent">Développement Fullstack </span>
         <span class="tag">Data Engineering Junior</span>
       </div>
       <span class="mini-label" style="margin-top:22px;">Domaines d'intérêt</span>
@@ -1041,7 +1052,8 @@ transform:translateY(0);
         <span class="tag">Visualisation interactive</span>
       </div>
       <div class="project-links">
-        <a href="https://github.com/Adia017/App_shiny_diamond" target="_blank">⌥ Code GitHub</a>
+        <a href="https://github.com/Adia017/App_shiny_diamond/blob/main/server.R" target="_blank">⌥ Code GitHub--server </a>
+        <a href="https://github.com/Adia017/App_shiny_diamond/blob/main/ui.R" target="_blank">⌥ Code GitHub->interface </a>
       </div>
     </div>
   </div>
@@ -1115,6 +1127,82 @@ navList.querySelectorAll('a').forEach(link=>{
 // Année dynamique dans le footer
 document.getElementById('year').textContent = new Date().getFullYear();
 </script>
+<script>
+  // Animation particules flottantes
+  (function(){
+  var canvas = document.getElementById('particleCanvas');
+  var ctx = canvas.getContext('2d');
+  var wrap = canvas.parentElement;
+  var W, H;
 
+  function resize(){
+    W = wrap.clientWidth;
+    H = wrap.clientHeight;
+    canvas.width = W * devicePixelRatio;
+    canvas.height = H * devicePixelRatio;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  var colors = ['#8073E5', '#C26FB3'];
+  var count = 40;
+  var particles = [];
+  for (var i = 0; i < count; i++){
+    particles.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25,
+      r: 1.4 + Math.random() * 1.8,
+      c: colors[i % colors.length]
+    });
+  }
+
+  function step(){
+    ctx.clearRect(0, 0, W, H);
+
+    for (var i = 0; i < particles.length; i++){
+      var p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > W) p.vx *= -1;
+      if (p.y < 0 || p.y > H) p.vy *= -1;
+    }
+
+    for (var i = 0; i < particles.length; i++){
+      for (var j = i + 1; j < particles.length; j++){
+        var a = particles[i], b = particles[j];
+        var dx = a.x - b.x, dy = a.y - b.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 110){
+          ctx.strokeStyle = a.c;
+          ctx.globalAlpha = (1 - dist / 110) * 0.18;
+          ctx.lineWidth = 0.6;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    ctx.globalAlpha = 0.55;
+    for (var i = 0; i < particles.length; i++){
+      var p = particles[i];
+      ctx.fillStyle = p.c;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    requestAnimationFrame(step);
+  }
+  step();
+})();
+</script>
 </body>
 </html>
