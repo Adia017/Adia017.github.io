@@ -10,15 +10,15 @@
 <style>
 
 :root{
-  --bg:#FAFAF8;
-  --bg-panel:#F1F2ED;
-  --ink:#14171C;
-  --ink-soft:#5B6270;
-  --border:#E4E5DF;
-  --accent:#1D4ED8;
-  --accent-soft:#E9EEFC;
-  --amber:#B5750A;
-  --amber-soft:#FBEFDC;
+  --bg:#FAFBFC;
+  --bg-panel:#F3F1F9;
+  --ink:#1A1A24;
+  --ink-soft:#645F7A;
+  --border:#E7E2F5;
+  --accent:#8073E5;
+  --accent-soft:#EFECFC;
+  --amber:#C26FB3;
+  --amber-soft:#FBEEF9;
   --display:'Space Grotesk',sans-serif;
   --body:'Inter',sans-serif;
   --mono:'IBM Plex Mono',monospace;
@@ -111,6 +111,30 @@ nav a{
 
 nav a:hover{color:var(--accent);background:var(--accent-soft);}
 
+/* NAV MOBILE - burger menu */
+.burger{
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  gap:5px;
+  width:38px;height:38px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:#fff;
+  cursor:pointer;
+  padding:0;
+}
+.burger span{
+  display:block;
+  width:16px;height:2px;
+  background:var(--ink);
+  margin:0 auto;
+  transition:transform .25s ease, opacity .25s ease;
+}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.burger.open span:nth-child(2){opacity:0;}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
 /* HERO */
 .hero{
   position:relative;
@@ -118,6 +142,25 @@ nav a:hover{color:var(--accent);background:var(--accent-soft);}
   overflow:hidden;
   background-image:radial-gradient(var(--border) 1.4px, transparent 1.4px);
   background-size:26px 26px;
+}
+
+.hero::before,.hero::after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  filter:blur(70px);
+  opacity:.4;
+  z-index:0;
+}
+.hero::before{
+  width:360px;height:360px;
+  background:var(--accent);
+  top:-120px;left:-100px;
+}
+.hero::after{
+  width:320px;height:320px;
+  background:var(--amber);
+  top:60px;right:-120px;
 }
 
 
@@ -137,6 +180,10 @@ position:relative;
   font-size:clamp(2.4rem,6vw,4rem);
   font-weight:700;
   margin-bottom:14px;
+  background:linear-gradient(100deg,var(--ink) 40%,var(--accent) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
 .hero .role{
@@ -159,7 +206,7 @@ position:relative;
   font-size:13px;
   color:var(--accent);
   background:var(--accent-soft);
-  border:1px solid #D6E0FA;
+  border:1px solid #DCD4F7;
   padding:10px 16px;
   border-radius:8px;
   margin-bottom:34px;
@@ -228,6 +275,10 @@ animation:scrollLeft 25s linear infinite;
 animation:scrollRight 25s linear infinite;
 }
 
+.ticker:hover .ticker-track{
+animation-play-state:paused;
+}
+
 .ticker span{
 padding:12px 20px;
 border-radius:25px;
@@ -235,6 +286,12 @@ background:white;
 border:1px solid var(--border);
 font-family:var(--mono);
 font-size:13px;
+transition:border-color .2s ease, color .2s ease;
+}
+
+.ticker span:hover{
+border-color:var(--accent);
+color:var(--accent);
 }
 
 @keyframes scrollLeft{
@@ -384,6 +441,94 @@ transform:translateX(0);
 
 .featured .mission-list li::before{color:var(--amber);}
 
+.result-line{
+  font-size:14px;
+  color:var(--ink);
+  background:#fff;
+  border:1px dashed var(--border);
+  border-radius:10px;
+  padding:12px 16px;
+  margin-top:16px;
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+}
+.featured .result-line{border-color:var(--amber);}
+.result-line .icon{font-family:var(--mono);color:var(--accent);flex-shrink:0;}
+.featured .result-line .icon{color:var(--amber);}
+
+/* AUTOMATION FLOW */
+.automation-flow{
+  display:flex;
+  align-items:stretch;
+  gap:0;
+  margin-top:18px;
+  flex-wrap:wrap;
+}
+.flow-step{
+  background:#fff;
+  border:1px solid var(--amber);
+  border-radius:12px;
+  padding:16px 18px;
+  flex:1;
+  min-width:140px;
+  text-align:center;
+  position:relative;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.flow-step:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 22px rgba(194,111,179,.18);
+}
+.flow-step .flow-icon{
+  font-size:26px;
+  margin-bottom:8px;
+  display:block;
+}
+.flow-step .flow-icon img{
+  width:32px;
+  height:32px;
+  object-fit:contain;
+}
+.flow-step.flow-result .flow-icon img{
+  filter:brightness(0) invert(1);
+}
+.flow-step .flow-label{
+  font-family:var(--mono);
+  font-size:11.5px;
+  font-weight:500;
+  color:var(--ink);
+  display:block;
+  margin-bottom:3px;
+}
+.flow-step .flow-sub{
+  font-size:11px;
+  color:var(--ink-soft);
+  display:block;
+}
+.flow-step.flow-result{
+  background:var(--amber);
+  border-color:var(--amber);
+}
+.flow-step.flow-result .flow-label,
+.flow-step.flow-result .flow-sub{color:#fff;}
+
+.flow-arrow{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 6px;
+  color:var(--amber);
+  font-size:18px;
+  font-weight:600;
+  flex:0 0 auto;
+}
+
+@media(max-width:640px){
+  .automation-flow{flex-direction:column;}
+  .flow-arrow{transform:rotate(90deg);padding:2px 0;}
+}
+
 /* PROJECTS */
 .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
 
@@ -395,6 +540,7 @@ transform:translateX(0);
   display:flex;
   flex-direction:column;
   gap:12px;
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
 
 .project-card:hover{
@@ -411,7 +557,47 @@ transform:translateX(0);
   margin-bottom:12px;
 }
 
+.project-thumb{
+  width:100%;
+  max-height:170px;
+  object-fit:cover;
+  border-radius:10px;
+  border:1px solid var(--border);
+  margin-bottom:2px;
+}
+
 .project-card h3{font-size:1.05rem;margin-bottom:14px;font-weight:600;line-height:1.35;}
+
+.project-meta{
+  font-family:var(--mono);
+  font-size:11.5px;
+  color:var(--ink-soft);
+  margin-top:-8px;
+}
+
+.project-links{
+  display:flex;
+  gap:10px;
+  margin-top:auto;
+  padding-top:6px;
+}
+
+.project-links a{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  text-decoration:none;
+  color:var(--accent);
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:7px 12px;
+  border-radius:7px;
+  border:1px solid var(--accent-soft);
+  background:var(--accent-soft);
+  transition:background .2s ease, border-color .2s ease;
+}
+.project-links a:hover{background:#DCE6FA;border-color:#C4D3F5;}
 
 /* CONTACT */
 .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
@@ -475,8 +661,38 @@ footer{
   .about-grid{grid-template-columns:1fr;}
 }
 
+@media(max-width:768px){
+  .burger{display:flex;}
+  nav ul{
+    position:fixed;
+    top:66px;
+    right:24px;
+    left:24px;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:12px;
+    flex-direction:column;
+    padding:10px;
+    gap:2px;
+    box-shadow:0 14px 30px rgba(20,23,28,.12);
+    transform:translateY(-12px);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  nav ul.open{
+    transform:translateY(0);
+    opacity:1;
+    pointer-events:auto;
+  }
+  nav a{
+    font-size:13px;
+    padding:12px 14px;
+    display:block;
+  }
+}
+
 @media(max-width:640px){
-  nav a{padding:6px 6px;font-size:10.5px;}
   .hero{padding:150px 18px 80px;}
 }
 
@@ -501,7 +717,10 @@ transform:translateY(0);
 <nav>
   <div class="nav-inner">
     <div class="logo">AN</div>
-    <ul>
+    <button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="navList">
       <li><a href="#about">À propos</a></li>
       <li><a href="#skills">Compétences</a></li>
       <li><a href="#formation">Formation</a></li>
@@ -520,7 +739,7 @@ transform:translateY(0);
     <p class="mission">Transformer les données en informations exploitables pour favoriser une prise de décision éclairée.</p>
     <div class="query-line">SELECT nom, poste FROM candidats WHERE profil = 'data' AND motivation = TRUE;<span class="cursor"></span></div>
     <div class="hero-ctas">
-      <a href="CV_.pdf" class="btn btn-primary" target="_blank">Mon CV</a>
+      <a href="CV_Adiaratou_Ndiaye.pdf" class="btn btn-primary" target="_blank">Mon CV</a>
       <a href="#contact" class="btn btn-ghost">Me contacter</a>
     </div>
   </div>
@@ -712,7 +931,7 @@ transform:translateY(0);
   <div class="timeline-card featured reveal">
     <span class="badge">★ Expérience phare</span>
     <h3>Stage — Michelin</h3>
-    <span class="timeline-meta">Développement et amélioration d'un outil de gestion des données d'essais, en environnement industriel</span>
+    <span class="timeline-meta">Développement et amélioration d'un outil de gestion des données d'essais, en environnement industriel · [durée, ex. 12 semaines]</span>
     <ul class="mission-list">
       <li>Structuration de données</li>
       <li>Contrôle qualité</li>
@@ -720,11 +939,35 @@ transform:translateY(0);
       <li>Analyse métier</li>
       <li>Documentation technique</li>
     </ul>
+    <div class="tag-row" style="margin-top:16px;">
+      <span class="tag" style="border-color:var(--amber);color:var(--amber);">Power Automate</span>
+      <span class="tag" style="border-color:var(--amber);color:var(--amber);">Microsoft Access</span>
+      <span class="tag" style="border-color:var(--amber);color:var(--amber);">VBA</span>
+    </div>
+    <div class="automation-flow">
+      <div class="flow-step">
+        <span class="flow-icon"><img src="https://cdn.jsdelivr.net/npm/lucide-static@0.469.0/icons/clipboard-list.svg" alt="Saisie manuelle" loading="lazy"></span>
+        <span class="flow-label">Saisie manuelle</span>
+        <span class="flow-sub">données d'essais éparpillées</span>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="flow-icon"><img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/microsoft-power-automate.svg" alt="Power Automate" loading="lazy"></span>
+        <span class="flow-label">Power Automate</span>
+        <span class="flow-sub">flux automatisés & alertes</span>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="flow-icon"><img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/microsoft-access.svg" alt="Microsoft Access" loading="lazy"></span>
+        <span class="flow-label">Base Access</span>
+        <span class="flow-sub">centralisation & requêtes</span>
+      </div>
+    </div>
   </div>
 
   <div class="timeline-card reveal">
     <h3>Stage — Reltim (Qualiopi)</h3>
-    <span class="timeline-meta">Analyse de la satisfaction client</span>
+    <span class="timeline-meta">Analyse de la satisfaction client · [durée]</span>
     <ul class="mission-list">
       <li>CSAT</li>
       <li>NPS</li>
@@ -744,22 +987,8 @@ transform:translateY(0);
   <div class="projects-grid">
     <div class="project-card reveal">
       <span class="num">01</span>
-      <h3>Conception d'une Solution d'Aide à la Décision</h3>
-      <p>
-      Analyse d'un besoin métier afin de construire un système d'aide à la décision.
-      Le projet comprenait la modélisation des données, la définition d'indicateurs de performance (KPI)
-      et la réalisation de tableaux de bord interactifs destinés à faciliter le pilotage d'activité.
-      </p>
-      <div class="tag-row">
-        <span class="tag">Analyse métier</span>
-        <span class="tag">KPI</span>
-        <span class="tag">Dashboarding</span>
-        <span class="tag tag-accent">Power BI</span>
-      </div>
-    </div>
-    <div class="project-card reveal">
-      <span class="num">02</span>
       <h3>Conception d'un Data Warehouse Décisionnel</h3>
+      <span class="project-meta">2025 · Projet BUT · Équipe de 3</span>
       <p>
       Développement d'un entrepôt de données sous PostgreSQL permettant de centraliser et
       historiser les informations nécessaires au reporting. Mise en place de traitements ETL,
@@ -771,50 +1000,48 @@ transform:translateY(0);
         <span class="tag">PL/pgSQL</span>
         <span class="tag">Reporting</span>
       </div>
-    </div>
-    <div class="project-card reveal">
-      <span class="num">03</span>
-      <h3>Analyse Exploratoire et Extraction de Connaissances</h3>      
-      <p>
-      Préparation, nettoyage et exploration de jeux de données dans le but d'identifier des tendances,
-      des comportements récurrents et des segments pertinents. L'objectif était de transformer les
-      données brutes en informations exploitables pour la prise de décision.
-      </p>
-      <div class="tag-row">
-        <span class="tag">Datamining</span>
-        <span class="tag">Segmentation</span>
-        <span class="tag">Analyse exploratoire</span>
+      <div class="project-links">
+        <a href="https://github.com/Adia017" target="_blank">⌥ Code GitHub</a>
       </div>
     </div>
     <div class="project-card reveal">
-      <span class="num">04</span>
+      <span class="num">02</span>
       <h3>Développement de Modèles Prédictifs</h3>
+      <span class="project-meta">2024 · Projet BUT · Binôme</span>
       <p>
       Construction et évaluation de modèles de Machine Learning destinés à prédire des comportements
       ou des résultats futurs à partir de données historiques. Comparaison des performances des modèles
-      et analyse des résultats obtenus.
+      et analyse des résultats obtenus, appliqués aux résultats du top 10 des courses de cyclisme 2024.
       </p>
       <div class="tag-row">
         <span class="tag">Machine Learning</span>
         <span class="tag">Classification supervisée</span>
+        <span class="tag">Web scraping</span>
         <span class="tag">Évaluation des modèles</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Adia017/Projet_extraction_data" target="_blank">⌥ Code GitHub</a>
       </div>
     </div>
     <div class="project-card reveal">
-      <span class="num">05</span>
-      <h3>Conception d'Applications Web de Visualisation de Données</h3>
+      <span class="num">03</span>
+      <h3>Analyse Exploratoire & Application Web de Visualisation</h3>
+      <span class="project-meta">2024 · Projet BUT · Application Shiny</span>
+      <img class="project-thumb" src="https://raw.githubusercontent.com/Adia017/App_shiny_diamond/main/image_de_notre_app.png" alt="Aperçu de l'application Shiny Analyse des diamants" loading="lazy">
       <p>
-      Développement d'interfaces web interactives permettant la consultation et la visualisation
-      de données. Utilisation de HTML, CSS, JavaScript, PHP et SQL ainsi que de bibliothèques de
-      visualisation pour présenter les résultats de manière claire et intuitive.
+      Préparation, nettoyage et exploration d'un jeu de données pour identifier tendances et segments
+      pertinents, puis restitution des résultats via une application Shiny interactive ("Analyse des
+      diamants") permettant d'explorer les caractéristiques des diamants à travers des filtres
+      dynamiques et des visualisations.
       </p>
       <div class="tag-row">
-        <span class="tag">HTML</span>
-        <span class="tag">CSS</span>
-        <span class="tag">JavaScript</span>
-        <span class="tag">PHP</span>
-        <span class="tag">SQL</span>
-        <span class="tag">Chart.js</span>
+        <span class="tag">Datamining</span>
+        <span class="tag">Analyse exploratoire</span>
+        <span class="tag tag-accent">R / Shiny</span>
+        <span class="tag">Visualisation interactive</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Adia017/App_shiny_diamond" target="_blank">⌥ Code GitHub</a>
       </div>
     </div>
   </div>
@@ -859,7 +1086,7 @@ transform:translateY(0);
 
 </div>
 
-<footer>© 2026 Adiaratou N'diaye — Data Analyst & Business Intelligence</footer>
+<footer>© <span id="year"></span> Adiaratou N'diaye — Data Analyst & Business Intelligence</footer>
 
 <script>
 const io = new IntersectionObserver((entries)=>{
@@ -868,6 +1095,25 @@ const io = new IntersectionObserver((entries)=>{
   });
 },{threshold:0.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// Menu burger mobile
+const burgerBtn = document.getElementById('burgerBtn');
+const navList = document.getElementById('navList');
+burgerBtn.addEventListener('click', ()=>{
+  const isOpen = navList.classList.toggle('open');
+  burgerBtn.classList.toggle('open', isOpen);
+  burgerBtn.setAttribute('aria-expanded', isOpen);
+});
+navList.querySelectorAll('a').forEach(link=>{
+  link.addEventListener('click', ()=>{
+    navList.classList.remove('open');
+    burgerBtn.classList.remove('open');
+    burgerBtn.setAttribute('aria-expanded', false);
+  });
+});
+
+// Année dynamique dans le footer
+document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 
 </body>
