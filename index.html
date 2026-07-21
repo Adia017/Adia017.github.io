@@ -177,6 +177,16 @@ position:relative;
 }
 
 .hero .eyebrow{justify-content:center;}
+.hero-photo{
+  width:132px;
+  height:132px;
+  border-radius:50%;
+  object-fit:cover;
+  margin:0 auto 22px;
+  display:block;
+  border:3px solid #fff;
+  box-shadow:0 0 0 3px var(--accent-soft), 0 14px 30px rgba(128,115,229,.22);
+}
 
 .hero h1{
   font-size:clamp(2.4rem,6vw,4rem);
@@ -742,6 +752,7 @@ transform:translateY(0);
 <header class="hero">
   <canvas id="particleCanvas"></canvas>
   <div class="hero-inner">
+    <img src="photo.png" alt="photo de profil" class="hero-photo">
     <p class="eyebrow">Portfolio Data & IA</p>
     <h1>Adiaratou Ndiaye</h1>
     <p class="role">Data Analyst · Business Intelligence · Data & IA</p>
